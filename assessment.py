@@ -76,8 +76,8 @@ def parse_arguments():
     return parser.parse_args()
 
 
-# python terrapay_test.py demand '2010-01-01 11:33:00'  '2011-01-10 11:33:00' T-Shirt
-# python terrapay_test.py demand 2010-01-01  2011-01-10 T-Shirt
+# python assessment.py demand '2010-01-01 11:33:00'  '2011-01-10 11:33:00' T-Shirt
+# python assessment.py demand 2010-01-01  2011-01-10 T-Shirt
 
 def main():
     try:
