@@ -1,0 +1,3 @@
+argparse
+mysql-connector-python
+datetime
