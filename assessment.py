@@ -12,6 +12,7 @@ DB_NAME = 'new'
 DB_PORT = '3306'
 
 
+# Connect to MySQL database
 def connect_to_database():
     try:
         return mysql.connector.connect(
@@ -28,7 +29,7 @@ def connect_to_database():
 
 def run_query(query_name, start_date, end_date, category):
     conn = None
-    curser = None
+    cursor = None
     queries = {
         'demand': "SELECT * FROM data_t WHERE InvoiceDate BETWEEN %s AND %s AND Description LIKE %s"
         # Add more queries here as needed
@@ -51,17 +52,21 @@ def run_query(query_name, start_date, end_date, category):
             log.error(e)
             return None
         finally:
-            cursor.close()
-            conn.close()
+            if cursor:
+                cursor.close()
+            if conn:
+                conn.close()
     else:
         return None
 
 
 def parse_datetime(date_str):
     try:
+        # Try parsing with datetime format YYYY-MM-DD HH:MM:SS
         return datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S")
     except ValueError:
         try:
+            # Try parsing with datetime format YYYY-MM-DD
             return datetime.strptime(date_str, "%Y-%m-%d")
         except ValueError:
             raise argparse.ArgumentTypeError("Invalid date format. Use YYYY-MM-DD or YYYY-MM-DD HH:MM:SS.")
